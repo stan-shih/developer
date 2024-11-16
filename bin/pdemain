@@ -68,7 +68,7 @@ install() {
 }
 ####
 getEnvOS() {
-    echo $(echo $MACHTYPE | awk -F- '{print $3}')
+    echo $(echo $MACHTYPE | awk -F- '{print $3}') 
 }
 osIsWindows() {
     [[ $(getEnvOS) =~ ^msys.*$ ]] && echo "Y" || echo "N"
@@ -85,11 +85,16 @@ fi
 ####
 #### Main Script
 ####
+echo "Start PDE with Bash($BASH_VERSION)..."
 if [[ $(osIsWindows) == "Y" ]]; then
     DIR="$(cd "$(dirname $(readlink -f "${BASH_SOURCE[0]}"))/.." && pwd)"
     export OS_WINDOWS="Y"
 elif [[ $(osIsMac) == "Y" ]]; then
-    DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")"/..; pwd)"
+    if [ -n "$ZSH_VERSION" ]; then
+        DIR="$(cd "$(dirname "$(readlink -f "$0")")"/..; pwd)"
+    else
+        DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")"/..; pwd)"
+    fi
     export OS_MACOS="Y"
 else
     echo "Sorry! PDE can't support on this system!!!"
