@@ -2,6 +2,9 @@
 ####
 #### alias
 alias gitl='git log --pretty="%h %ci W: %<(16,trunc)%an C: %<(16,trunc)%cn %s"'
+alias gohome='cd $BASE'
+alias godev='cd $DEV_HOME'
+alias gorepos='cd $DEV_HOME/repos'
 ####
 #### Application Path
 for file in "$DEV_HOME/etc/application.path"/*.path; do
